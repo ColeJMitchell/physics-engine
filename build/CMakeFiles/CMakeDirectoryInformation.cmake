@@ -3,7 +3,7 @@
 
 # Relative path conversion top directories.
 set(CMAKE_RELATIVE_PATH_TOP_SOURCE "/home/cole/github/physics-engine")
-set(CMAKE_RELATIVE_PATH_TOP_BINARY "/home/cole/github/physics-engine")
+set(CMAKE_RELATIVE_PATH_TOP_BINARY "/home/cole/github/physics-engine/build")
 
 # Force unix paths in dependencies.
 set(CMAKE_FORCE_UNIX_PATHS 1)

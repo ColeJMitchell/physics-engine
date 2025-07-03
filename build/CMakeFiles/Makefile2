@@ -57,13 +57,13 @@ EQUALS = =
 CMAKE_SOURCE_DIR = /home/cole/github/physics-engine
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/cole/github/physics-engine
+CMAKE_BINARY_DIR = /home/cole/github/physics-engine/build
 
 #=============================================================================
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/myapp.dir/all
+all: CMakeFiles/world.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -71,34 +71,34 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/myapp.dir/clean
+clean: CMakeFiles/world.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/myapp.dir
+# Target rules for target CMakeFiles/world.dir
 
 # All Build rule for target.
-CMakeFiles/myapp.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cole/github/physics-engine/CMakeFiles --progress-num=1,2 "Built target myapp"
-.PHONY : CMakeFiles/myapp.dir/all
+CMakeFiles/world.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/world.dir/build.make CMakeFiles/world.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/world.dir/build.make CMakeFiles/world.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/cole/github/physics-engine/build/CMakeFiles --progress-num=1,2 "Built target world"
+.PHONY : CMakeFiles/world.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/myapp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/cole/github/physics-engine/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/myapp.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/cole/github/physics-engine/CMakeFiles 0
-.PHONY : CMakeFiles/myapp.dir/rule
+CMakeFiles/world.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cole/github/physics-engine/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/world.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cole/github/physics-engine/build/CMakeFiles 0
+.PHONY : CMakeFiles/world.dir/rule
 
 # Convenience name for target.
-myapp: CMakeFiles/myapp.dir/rule
-.PHONY : myapp
+world: CMakeFiles/world.dir/rule
+.PHONY : world
 
 # clean rule for target.
-CMakeFiles/myapp.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/clean
-.PHONY : CMakeFiles/myapp.dir/clean
+CMakeFiles/world.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/world.dir/build.make CMakeFiles/world.dir/clean
+.PHONY : CMakeFiles/world.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

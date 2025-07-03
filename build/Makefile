@@ -60,7 +60,7 @@ EQUALS = =
 CMAKE_SOURCE_DIR = /home/cole/github/physics-engine
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/cole/github/physics-engine
+CMAKE_BINARY_DIR = /home/cole/github/physics-engine/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/cole/github/physics-engine/CMakeFiles /home/cole/github/physics-engine//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cole/github/physics-engine/build/CMakeFiles /home/cole/github/physics-engine/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/cole/github/physics-engine/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/cole/github/physics-engine/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -117,24 +117,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named myapp
+# Target rules for targets named world
 
 # Build rule for target.
-myapp: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 myapp
-.PHONY : myapp
+world: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 world
+.PHONY : world
 
 # fast build rule for target.
-myapp/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/build
-.PHONY : myapp/fast
+world/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/world.dir/build.make CMakeFiles/world.dir/build
+.PHONY : world/fast
 
 main.o: main.cpp.o
 .PHONY : main.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/main.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/world.dir/build.make CMakeFiles/world.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -142,7 +142,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/world.dir/build.make CMakeFiles/world.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -150,7 +150,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/myapp.dir/build.make CMakeFiles/myapp.dir/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/world.dir/build.make CMakeFiles/world.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 # Help Target
@@ -161,7 +161,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... myapp"
+	@echo "... world"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
