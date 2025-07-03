@@ -8,12 +8,21 @@ find_package(PkgConfig REQUIRED)
 find_package(glfw3 REQUIRED)
 find_package(GLEW REQUIRED)
 
-add_executable(world main.cpp)
+add_executable(
+    world 
+    src/main.cpp
+)
+
+target_include_directories(
+    world
+    PRIVATE
+        include
+)
 
 target_link_libraries(
     world
     PRIVATE
-    OpenGL::GL
-    glfw
-    GLEW::GLEW
+        OpenGL::GL
+        glfw
+        GLEW::GLEW
 )

@@ -69,28 +69,28 @@ include CMakeFiles/world.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/world.dir/flags.make
 
-CMakeFiles/world.dir/main.cpp.o: CMakeFiles/world.dir/flags.make
-CMakeFiles/world.dir/main.cpp.o: ../main.cpp
-CMakeFiles/world.dir/main.cpp.o: CMakeFiles/world.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/cole/github/physics-engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/world.dir/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/world.dir/main.cpp.o -MF CMakeFiles/world.dir/main.cpp.o.d -o CMakeFiles/world.dir/main.cpp.o -c /home/cole/github/physics-engine/main.cpp
+CMakeFiles/world.dir/src/main.cpp.o: CMakeFiles/world.dir/flags.make
+CMakeFiles/world.dir/src/main.cpp.o: ../src/main.cpp
+CMakeFiles/world.dir/src/main.cpp.o: CMakeFiles/world.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/cole/github/physics-engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/world.dir/src/main.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/world.dir/src/main.cpp.o -MF CMakeFiles/world.dir/src/main.cpp.o.d -o CMakeFiles/world.dir/src/main.cpp.o -c /home/cole/github/physics-engine/src/main.cpp
 
-CMakeFiles/world.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/world.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/cole/github/physics-engine/main.cpp > CMakeFiles/world.dir/main.cpp.i
+CMakeFiles/world.dir/src/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/world.dir/src/main.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/cole/github/physics-engine/src/main.cpp > CMakeFiles/world.dir/src/main.cpp.i
 
-CMakeFiles/world.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/world.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/cole/github/physics-engine/main.cpp -o CMakeFiles/world.dir/main.cpp.s
+CMakeFiles/world.dir/src/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/world.dir/src/main.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/cole/github/physics-engine/src/main.cpp -o CMakeFiles/world.dir/src/main.cpp.s
 
 # Object files for target world
 world_OBJECTS = \
-"CMakeFiles/world.dir/main.cpp.o"
+"CMakeFiles/world.dir/src/main.cpp.o"
 
 # External object files for target world
 world_EXTERNAL_OBJECTS =
 
-world: CMakeFiles/world.dir/main.cpp.o
+world: CMakeFiles/world.dir/src/main.cpp.o
 world: CMakeFiles/world.dir/build.make
 world: /usr/lib/x86_64-linux-gnu/libGL.so
 world: /usr/lib/x86_64-linux-gnu/libglfw.so.3.3
