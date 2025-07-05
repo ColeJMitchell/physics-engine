@@ -1,6 +1,26 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+
+std::string readShader(const std::string& filepath)
+{
+    std::ifstream file(filepath);
+    if (!file.is_open())
+    {
+        std::cerr << "Could not open file: " << filepath << std::endl;
+        return "";
+    }
+    else
+    {
+        std::stringstream buffer;
+        buffer << file.rdbuf();
+        return buffer.str();
+    }
+}
+
 
 static unsigned int compileShader(unsigned int type, const std::string& source)
 {
@@ -106,21 +126,8 @@ int main()
         2, 3, 0  
     };
     
-    std::string vertexShader = R"(
-        #version 330 core
-        layout(location = 0) in vec2 position;
-        void main() {
-            gl_Position = vec4(position, 0.0, 1.0);
-        }
-    )";
-    
-    std::string fragmentShader = R"(
-        #version 330 core
-        out vec4 color;
-        void main() {
-            color = vec4(1.0, 0.0, 0.0, 1.0); 
-        }
-    )";
+    std::string vertexShader = readShader("../shaders/vertex.glsl");
+    std::string fragmentShader = readShader("../shaders/fragment.glsl");
     
     unsigned int shaderProgram = createShaders(vertexShader, fragmentShader);
     if (shaderProgram == 0) 
@@ -149,6 +156,9 @@ int main()
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
     
     glUseProgram(shaderProgram);
+
+    int location = glGetUniformLocation(shaderProgram, "u_Color");
+    glUniform4f(location, 1.0f, 1.0f, 1.0f, 1.0f); 
     
     while(!glfwWindowShouldClose(window))
     {
