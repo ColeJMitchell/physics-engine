@@ -5,6 +5,7 @@
 #include <sstream>
 #include <string>
 #include "vertexbuffer.h"
+#include "debugging.h"
 
 std::string readShader(const std::string& filepath)
 {
