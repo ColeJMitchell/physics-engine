@@ -129,6 +129,30 @@ world/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/world.dir/build.make CMakeFiles/world.dir/build
 .PHONY : world/fast
 
+src/bufferlayout.o: src/bufferlayout.cpp.o
+.PHONY : src/bufferlayout.o
+
+# target to build an object file
+src/bufferlayout.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/world.dir/build.make CMakeFiles/world.dir/src/bufferlayout.cpp.o
+.PHONY : src/bufferlayout.cpp.o
+
+src/bufferlayout.i: src/bufferlayout.cpp.i
+.PHONY : src/bufferlayout.i
+
+# target to preprocess a source file
+src/bufferlayout.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/world.dir/build.make CMakeFiles/world.dir/src/bufferlayout.cpp.i
+.PHONY : src/bufferlayout.cpp.i
+
+src/bufferlayout.s: src/bufferlayout.cpp.s
+.PHONY : src/bufferlayout.s
+
+# target to generate assembly for a file
+src/bufferlayout.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/world.dir/build.make CMakeFiles/world.dir/src/bufferlayout.cpp.s
+.PHONY : src/bufferlayout.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -153,6 +177,54 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/world.dir/build.make CMakeFiles/world.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/vertexarray.o: src/vertexarray.cpp.o
+.PHONY : src/vertexarray.o
+
+# target to build an object file
+src/vertexarray.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/world.dir/build.make CMakeFiles/world.dir/src/vertexarray.cpp.o
+.PHONY : src/vertexarray.cpp.o
+
+src/vertexarray.i: src/vertexarray.cpp.i
+.PHONY : src/vertexarray.i
+
+# target to preprocess a source file
+src/vertexarray.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/world.dir/build.make CMakeFiles/world.dir/src/vertexarray.cpp.i
+.PHONY : src/vertexarray.cpp.i
+
+src/vertexarray.s: src/vertexarray.cpp.s
+.PHONY : src/vertexarray.s
+
+# target to generate assembly for a file
+src/vertexarray.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/world.dir/build.make CMakeFiles/world.dir/src/vertexarray.cpp.s
+.PHONY : src/vertexarray.cpp.s
+
+src/vertexbuffer.o: src/vertexbuffer.cpp.o
+.PHONY : src/vertexbuffer.o
+
+# target to build an object file
+src/vertexbuffer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/world.dir/build.make CMakeFiles/world.dir/src/vertexbuffer.cpp.o
+.PHONY : src/vertexbuffer.cpp.o
+
+src/vertexbuffer.i: src/vertexbuffer.cpp.i
+.PHONY : src/vertexbuffer.i
+
+# target to preprocess a source file
+src/vertexbuffer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/world.dir/build.make CMakeFiles/world.dir/src/vertexbuffer.cpp.i
+.PHONY : src/vertexbuffer.cpp.i
+
+src/vertexbuffer.s: src/vertexbuffer.cpp.s
+.PHONY : src/vertexbuffer.s
+
+# target to generate assembly for a file
+src/vertexbuffer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/world.dir/build.make CMakeFiles/world.dir/src/vertexbuffer.cpp.s
+.PHONY : src/vertexbuffer.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,9 +234,18 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... world"
+	@echo "... src/bufferlayout.o"
+	@echo "... src/bufferlayout.i"
+	@echo "... src/bufferlayout.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/vertexarray.o"
+	@echo "... src/vertexarray.i"
+	@echo "... src/vertexarray.s"
+	@echo "... src/vertexbuffer.o"
+	@echo "... src/vertexbuffer.i"
+	@echo "... src/vertexbuffer.s"
 .PHONY : help
 
 

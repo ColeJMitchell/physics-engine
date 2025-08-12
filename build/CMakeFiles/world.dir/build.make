@@ -83,20 +83,68 @@ CMakeFiles/world.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/world.dir/src/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/cole/github/physics-engine/src/main.cpp -o CMakeFiles/world.dir/src/main.cpp.s
 
+CMakeFiles/world.dir/src/bufferlayout.cpp.o: CMakeFiles/world.dir/flags.make
+CMakeFiles/world.dir/src/bufferlayout.cpp.o: ../src/bufferlayout.cpp
+CMakeFiles/world.dir/src/bufferlayout.cpp.o: CMakeFiles/world.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/cole/github/physics-engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/world.dir/src/bufferlayout.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/world.dir/src/bufferlayout.cpp.o -MF CMakeFiles/world.dir/src/bufferlayout.cpp.o.d -o CMakeFiles/world.dir/src/bufferlayout.cpp.o -c /home/cole/github/physics-engine/src/bufferlayout.cpp
+
+CMakeFiles/world.dir/src/bufferlayout.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/world.dir/src/bufferlayout.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/cole/github/physics-engine/src/bufferlayout.cpp > CMakeFiles/world.dir/src/bufferlayout.cpp.i
+
+CMakeFiles/world.dir/src/bufferlayout.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/world.dir/src/bufferlayout.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/cole/github/physics-engine/src/bufferlayout.cpp -o CMakeFiles/world.dir/src/bufferlayout.cpp.s
+
+CMakeFiles/world.dir/src/vertexbuffer.cpp.o: CMakeFiles/world.dir/flags.make
+CMakeFiles/world.dir/src/vertexbuffer.cpp.o: ../src/vertexbuffer.cpp
+CMakeFiles/world.dir/src/vertexbuffer.cpp.o: CMakeFiles/world.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/cole/github/physics-engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/world.dir/src/vertexbuffer.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/world.dir/src/vertexbuffer.cpp.o -MF CMakeFiles/world.dir/src/vertexbuffer.cpp.o.d -o CMakeFiles/world.dir/src/vertexbuffer.cpp.o -c /home/cole/github/physics-engine/src/vertexbuffer.cpp
+
+CMakeFiles/world.dir/src/vertexbuffer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/world.dir/src/vertexbuffer.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/cole/github/physics-engine/src/vertexbuffer.cpp > CMakeFiles/world.dir/src/vertexbuffer.cpp.i
+
+CMakeFiles/world.dir/src/vertexbuffer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/world.dir/src/vertexbuffer.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/cole/github/physics-engine/src/vertexbuffer.cpp -o CMakeFiles/world.dir/src/vertexbuffer.cpp.s
+
+CMakeFiles/world.dir/src/vertexarray.cpp.o: CMakeFiles/world.dir/flags.make
+CMakeFiles/world.dir/src/vertexarray.cpp.o: ../src/vertexarray.cpp
+CMakeFiles/world.dir/src/vertexarray.cpp.o: CMakeFiles/world.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/cole/github/physics-engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/world.dir/src/vertexarray.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/world.dir/src/vertexarray.cpp.o -MF CMakeFiles/world.dir/src/vertexarray.cpp.o.d -o CMakeFiles/world.dir/src/vertexarray.cpp.o -c /home/cole/github/physics-engine/src/vertexarray.cpp
+
+CMakeFiles/world.dir/src/vertexarray.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/world.dir/src/vertexarray.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/cole/github/physics-engine/src/vertexarray.cpp > CMakeFiles/world.dir/src/vertexarray.cpp.i
+
+CMakeFiles/world.dir/src/vertexarray.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/world.dir/src/vertexarray.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/cole/github/physics-engine/src/vertexarray.cpp -o CMakeFiles/world.dir/src/vertexarray.cpp.s
+
 # Object files for target world
 world_OBJECTS = \
-"CMakeFiles/world.dir/src/main.cpp.o"
+"CMakeFiles/world.dir/src/main.cpp.o" \
+"CMakeFiles/world.dir/src/bufferlayout.cpp.o" \
+"CMakeFiles/world.dir/src/vertexbuffer.cpp.o" \
+"CMakeFiles/world.dir/src/vertexarray.cpp.o"
 
 # External object files for target world
 world_EXTERNAL_OBJECTS =
 
 world: CMakeFiles/world.dir/src/main.cpp.o
+world: CMakeFiles/world.dir/src/bufferlayout.cpp.o
+world: CMakeFiles/world.dir/src/vertexbuffer.cpp.o
+world: CMakeFiles/world.dir/src/vertexarray.cpp.o
 world: CMakeFiles/world.dir/build.make
 world: /usr/lib/x86_64-linux-gnu/libGL.so
 world: /usr/lib/x86_64-linux-gnu/libglfw.so.3.3
 world: /usr/lib/x86_64-linux-gnu/libGLEW.so
 world: CMakeFiles/world.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/cole/github/physics-engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable world"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/cole/github/physics-engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable world"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/world.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
