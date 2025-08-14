@@ -5,6 +5,7 @@
 #include <sstream>
 #include <string>
 #include "vertexbuffer.h"
+#include "indexbuffer.h"
 #include "debugging.h"
 
 std::string readShader(const std::string& filepath)
@@ -150,10 +151,8 @@ int main()
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
 
-    unsigned int IBO;
-    glGenBuffers(1, &IBO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    IndexBuffer indexBuffer;
+    indexBuffer.createBuffer(indices, sizeof(indices) * sizeof(indices[0]));
     
     glUseProgram(shaderProgram);
 
@@ -171,7 +170,7 @@ int main()
     //cleanup
     glDeleteVertexArrays(1, &VAO);
     vertexBuffer.deleteBuffer();
-    glDeleteBuffers(1, &IBO);
+    indexBuffer.deleteBuffer();
     glDeleteProgram(shaderProgram);
     glfwDestroyWindow(window);
     glfwTerminate();
