@@ -20,6 +20,7 @@ std::string readShader(const std::string& filepath)
     {
         std::stringstream buffer;
         buffer << file.rdbuf();
+        file.close();
         return buffer.str();
     }
 }
@@ -145,14 +146,12 @@ int main()
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
     
-    VertexBuffer vertexBuffer;
-    vertexBuffer.createBuffer(vertices, (sizeof(vertices) / sizeof(vertices[0])) );
+    VertexBuffer vertexBuffer(vertices, (sizeof(vertices) / sizeof(vertices[0])));
     
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
 
-    IndexBuffer indexBuffer;
-    indexBuffer.createBuffer(indices, sizeof(indices) * sizeof(indices[0]));
+    IndexBuffer indexBuffer(indices, sizeof(indices) * sizeof(indices[0]));
     
     glUseProgram(shaderProgram);
 
@@ -169,8 +168,6 @@ int main()
     
     //cleanup
     glDeleteVertexArrays(1, &VAO);
-    vertexBuffer.deleteBuffer();
-    indexBuffer.deleteBuffer();
     glDeleteProgram(shaderProgram);
     glfwDestroyWindow(window);
     glfwTerminate();

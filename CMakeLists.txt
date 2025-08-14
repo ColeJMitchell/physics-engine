@@ -11,9 +11,6 @@ find_package(GLEW REQUIRED)
 add_executable(
     world 
     src/main.cpp
-    src/bufferlayout.cpp
-    src/vertexbuffer.cpp
-    src/vertexarray.cpp
 )
 
 target_include_directories(

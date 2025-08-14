@@ -1,12 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/world.dir/src/bufferlayout.cpp.o"
-  "CMakeFiles/world.dir/src/bufferlayout.cpp.o.d"
   "CMakeFiles/world.dir/src/main.cpp.o"
   "CMakeFiles/world.dir/src/main.cpp.o.d"
-  "CMakeFiles/world.dir/src/vertexarray.cpp.o"
-  "CMakeFiles/world.dir/src/vertexarray.cpp.o.d"
-  "CMakeFiles/world.dir/src/vertexbuffer.cpp.o"
-  "CMakeFiles/world.dir/src/vertexbuffer.cpp.o.d"
   "world"
   "world.pdb"
 )
