@@ -1,92 +1,10 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
 #include "vertexbuffer.h"
-#include "bufferlayout.h"
 #include "vertexarray.h"
 #include "indexbuffer.h"
+#include "shaders.h"
 #include "debugging.h"
-
-std::string readShader(const std::string& filepath)
-{
-    std::ifstream file(filepath);
-    if (!file.is_open())
-    {
-        std::cerr << "Could not open file: " << filepath << std::endl;
-        return "";
-    }
-    else
-    {
-        std::stringstream buffer;
-        buffer << file.rdbuf();
-        file.close();
-        return buffer.str();
-    }
-}
-
-
-static unsigned int compileShader(unsigned int type, const std::string& source)
-{
-    unsigned int id = glCreateShader(type);
-    const char* src = source.c_str();
-    glShaderSource(id, 1, &src, nullptr);
-    glCompileShader(id);
-    int result;
-    glGetShaderiv(id, GL_COMPILE_STATUS, &result);
-    if(result == GL_FALSE)
-    {
-        int length;
-        glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
-        char* message = new char[length];
-        glGetShaderInfoLog(id, length, &length, message);
-        std::cerr << "Shader compilation error: " << std::endl;
-        std::cerr << message << std::endl;
-        delete[] message;
-        glDeleteShader(id);
-        return 0;
-    }
-    return id;
-}
-
-static unsigned int createShaders(const std::string& vertexShader, const std::string& fragmentShader)
-{
-    unsigned int program = glCreateProgram();
-    unsigned int vs = compileShader(GL_VERTEX_SHADER, vertexShader);
-    unsigned int fs = compileShader(GL_FRAGMENT_SHADER, fragmentShader);
-    
-    //check if shaders compiled successfully
-    if (vs == 0 || fs == 0) 
-    {
-        glDeleteProgram(program);
-        return 0;
-    }
-    
-    glAttachShader(program, vs);
-    glAttachShader(program, fs);
-    glLinkProgram(program);
-    int linkStatus;
-    glGetProgramiv(program, GL_LINK_STATUS, &linkStatus);
-    if (linkStatus == GL_FALSE) 
-    {
-        int length;
-        glGetProgramiv(program, GL_INFO_LOG_LENGTH, &length);
-        char* message = new char[length];
-        glGetProgramInfoLog(program, length, &length, message);
-        std::cerr << "Shader linking error: " << std::endl;
-        std::cerr << message << std::endl;
-        delete[] message;
-        glDeleteProgram(program);
-        return 0;
-    }
-    
-    glValidateProgram(program);
-    glDeleteShader(vs);
-    glDeleteShader(fs);
-    return program;
-}
 
 int main()
 {
@@ -132,10 +50,10 @@ int main()
         2, 3, 0  
     };
     
-    std::string vertexShader = readShader("../shaders/vertex.glsl");
-    std::string fragmentShader = readShader("../shaders/fragment.glsl");
-    
-    unsigned int shaderProgram = createShaders(vertexShader, fragmentShader);
+    std::string vertexShader = Shaders::readShader("../shaders/vertex.glsl");
+    std::string fragmentShader = Shaders::readShader("../shaders/fragment.glsl");
+    unsigned int shaderProgram = Shaders::createShaders(vertexShader, fragmentShader);
+
     if (shaderProgram == 0) 
     {
         std::cerr << "Failed to create shader program" << std::endl;

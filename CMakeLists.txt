@@ -11,6 +11,7 @@ find_package(GLEW REQUIRED)
 add_executable(
     world 
     src/main.cpp
+    src/shaders.cpp
 )
 
 target_include_directories(

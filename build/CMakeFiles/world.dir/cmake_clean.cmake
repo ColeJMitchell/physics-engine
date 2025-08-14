@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/world.dir/src/main.cpp.o"
   "CMakeFiles/world.dir/src/main.cpp.o.d"
+  "CMakeFiles/world.dir/src/shaders.cpp.o"
+  "CMakeFiles/world.dir/src/shaders.cpp.o.d"
   "world"
   "world.pdb"
 )

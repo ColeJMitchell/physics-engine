@@ -1,5 +1,5 @@
 #include <GL/glew.h>
-#include "bufferlayout.h"
+#include <vector>
 #include "debugging.h"
 
 struct BufferElement
@@ -23,7 +23,7 @@ class VertexArray
 
         ~VertexArray() { glDeleteVertexArrays(1, &m_VertexArrayId); }
 
-        unsigned int getTypeByteSize(unsigned int glEnum)
+        unsigned int getEnumByteSize(unsigned int glEnum)
         {
             switch(glEnum)
             {
@@ -33,23 +33,26 @@ class VertexArray
                     return 4;
                 case GL_BYTE:
                     return 1;
+                default:
+                    return -1;
             }
-            return 0;
         }
 
         void addBufferElement(unsigned int vertexType, unsigned int vertexCount)
         {
-            m_BufferLayout.push_back({vertexCount, vertexCount * getTypeByteSize(vertexType), vertexType, sizeof(m_BufferLayout)});
+            m_BufferLayout.push_back({vertexCount, vertexCount * getEnumByteSize(vertexType), vertexType, sizeof(m_BufferLayout), true});
         }
 
         void processBufferLayout()
         {
             unsigned int counter = 0;
+            unsigned int offset = 0;
             for(auto bufferElement : m_BufferLayout)
             {
                 glEnableVertexAttribArray(counter);
                 glVertexAttribPointer(counter, bufferElement.vertexCount, bufferElement.vertexType, bufferElement.normalized, bufferElement.vertexByteSize, 0);
                 counter++;
+                offset += bufferElement.offset;
             }
         }
 
