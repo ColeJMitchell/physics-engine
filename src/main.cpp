@@ -5,6 +5,8 @@
 #include <sstream>
 #include <string>
 #include "vertexbuffer.h"
+#include "bufferlayout.h"
+#include "vertexarray.h"
 #include "indexbuffer.h"
 #include "debugging.h"
 
