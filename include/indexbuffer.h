@@ -12,11 +12,13 @@ class IndexBuffer
             glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(T) * count, bufferData, GL_STATIC_DRAW);
             Debugging::debug("Index Buffer");
         }
+
         ~IndexBuffer() { glDeleteBuffers(1, &m_IndexBufferId); }
 
         void bindBuffer() { glBindBuffer(GL_ARRAY_BUFFER, m_IndexBufferId); }
-        void unbindBuffer() { glBindBuffer(GL_ARRAY_BUFFER, 0); }
         
+        void unbindBuffer() { glBindBuffer(GL_ARRAY_BUFFER, 0); }
+
     private:
         unsigned int m_IndexBufferId;
 };

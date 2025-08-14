@@ -13,9 +13,11 @@ class VertexBuffer
             glBufferData(GL_ARRAY_BUFFER, sizeof(T) * count, bufferData, GL_STATIC_DRAW);
             Debugging::debug("Vertex Buffer");
         }
+
         ~VertexBuffer() { glDeleteBuffers(1, &m_VertexBufferId); }
 
         void bindBuffer() { glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferId); }
+        
         void unbindBuffer() { glBindBuffer(GL_ARRAY_BUFFER, 0); }
 
     private:

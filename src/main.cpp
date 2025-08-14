@@ -144,15 +144,10 @@ int main()
         return -1;
     }
     
-    unsigned int VAO;
-    glGenVertexArrays(1, &VAO);
-    glBindVertexArray(VAO);
-    
-    VertexBuffer vertexBuffer(vertices, (sizeof(vertices) / sizeof(vertices[0])));
-    
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
-
+    VertexArray vertexArray;
+    VertexBuffer vertexBuffer(vertices, (sizeof(vertices) / sizeof(vertices[0])));  
+    vertexArray.addBufferElement(GL_FLOAT, 2);
+    vertexArray.processBufferLayout();
     IndexBuffer indexBuffer(indices, sizeof(indices) * sizeof(indices[0]));
     
     glUseProgram(shaderProgram);
@@ -169,7 +164,6 @@ int main()
     }
     
     //cleanup
-    glDeleteVertexArrays(1, &VAO);
     glDeleteProgram(shaderProgram);
     glfwDestroyWindow(window);
     glfwTerminate();

@@ -195,10 +195,30 @@ CMakeFiles/world.dir/src/main.cpp.o: ../src/main.cpp \
   /usr/include/c++/11/bits/sstream.tcc \
   ../include/vertexbuffer.h \
   ../include/debugging.h \
+  ../include/bufferlayout.h \
+  /usr/include/c++/11/vector \
+  /usr/include/c++/11/bits/stl_uninitialized.h \
+  /usr/include/c++/11/bits/stl_vector.h \
+  /usr/include/c++/11/bits/stl_bvector.h \
+  /usr/include/c++/11/bits/vector.tcc \
+  ../include/vertexarray.h \
+  ../include/bufferlayout.h \
   ../include/indexbuffer.h
 
 
 ../include/indexbuffer.h:
+
+/usr/include/c++/11/bits/vector.tcc:
+
+/usr/include/c++/11/bits/stl_bvector.h:
+
+/usr/include/c++/11/bits/stl_uninitialized.h:
+
+../include/vertexarray.h:
+
+/usr/include/c++/11/vector:
+
+../include/bufferlayout.h:
 
 /usr/include/c++/11/sstream:
 
@@ -231,6 +251,8 @@ CMakeFiles/world.dir/src/main.cpp.o: ../src/main.cpp \
 /usr/include/c++/11/stdexcept:
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/error_constants.h:
+
+/usr/include/c++/11/bits/stl_vector.h:
 
 /usr/include/c++/11/system_error:
 

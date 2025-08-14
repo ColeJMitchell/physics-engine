@@ -156,4 +156,11 @@ CMakeFiles/world.dir/src/main.cpp.o: \
  /usr/include/c++/11/bits/sstream.tcc \
  /home/cole/github/physics-engine/include/vertexbuffer.h \
  /home/cole/github/physics-engine/include/debugging.h \
+ /home/cole/github/physics-engine/include/bufferlayout.h \
+ /usr/include/c++/11/vector /usr/include/c++/11/bits/stl_uninitialized.h \
+ /usr/include/c++/11/bits/stl_vector.h \
+ /usr/include/c++/11/bits/stl_bvector.h \
+ /usr/include/c++/11/bits/vector.tcc \
+ /home/cole/github/physics-engine/include/vertexarray.h \
+ /home/cole/github/physics-engine/include/bufferlayout.h \
  /home/cole/github/physics-engine/include/indexbuffer.h
