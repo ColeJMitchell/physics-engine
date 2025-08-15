@@ -4,6 +4,7 @@
 #include "vertexarray.h"
 #include "indexbuffer.h"
 #include "shaders.h"
+#include "renderer.h"
 #include "debugging.h"
 
 int main()
@@ -62,14 +63,14 @@ int main()
         return -1;
     }
     
-    VertexArray vertexArray;
     VertexBuffer vertexBuffer(vertices, (sizeof(vertices) / sizeof(vertices[0])));  
+    VertexArray vertexArray;
     vertexArray.addBufferElement(GL_FLOAT, 2);
     vertexArray.processBufferLayout();
+
     IndexBuffer indexBuffer(indices, sizeof(indices) * sizeof(indices[0]));
     
     glUseProgram(shaderProgram);
-
     int location = glGetUniformLocation(shaderProgram, "u_Color");
     glUniform4f(location, 1.0f, 1.0f, 1.0f, 1.0f); 
     
@@ -83,6 +84,10 @@ int main()
     
     //cleanup
     glDeleteProgram(shaderProgram);
+    vertexArray.unbind();
+    vertexBuffer.unbind();
+    indexBuffer.unbind();
+
     glfwDestroyWindow(window);
     glfwTerminate();
     return 0;

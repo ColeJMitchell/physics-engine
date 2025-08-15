@@ -56,7 +56,11 @@ class VertexArray
             }
         }
 
-        std::vector<BufferElement> getBufferElements() { return m_BufferLayout; }
+        void bind(){ glBindVertexArray(m_VertexArrayId); }
+
+        void unbind(){ glBindVertexArray(0); }
+
+        std::vector<BufferElement> getBufferElements(){ return m_BufferLayout; }
     
     private:
         unsigned int m_VertexArrayId;

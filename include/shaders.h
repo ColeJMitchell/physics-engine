@@ -7,9 +7,12 @@
 class Shaders
 {
     public:
-        static unsigned int createShaders(const std::string& vertexShader, const std::string& fragmentShader);
-        static std::string readShader(const std::string& filepath);
+        Shaders(std::string vertexShader, std::string fragmentShader);
+        ~Shaders();
+        std::string readShader(const std::string& filepath);
+        unsigned int createShaders(const std::string& vertexShader, const std::string& fragmentShader);
 
     private:
-        static unsigned int compileShader(unsigned int type, const std::string& source);
+        unsigned int m_ShaderProgram = 0;
+        unsigned int compileShader(unsigned int type, const std::string& source);
 };

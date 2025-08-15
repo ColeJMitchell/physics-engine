@@ -14,11 +14,11 @@ class VertexBuffer
             Debugging::debug("Vertex Buffer");
         }
 
-        ~VertexBuffer() { glDeleteBuffers(1, &m_VertexBufferId); }
+        ~VertexBuffer(){ glDeleteBuffers(1, &m_VertexBufferId); }
 
-        void bindBuffer() { glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferId); }
+        void bind(){ glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferId); }
         
-        void unbindBuffer() { glBindBuffer(GL_ARRAY_BUFFER, 0); }
+        void unbind(){ glBindBuffer(GL_ARRAY_BUFFER, 0); }
 
     private:
         unsigned int m_VertexBufferId;

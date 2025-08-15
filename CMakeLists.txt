@@ -12,6 +12,7 @@ add_executable(
     world 
     src/main.cpp
     src/shaders.cpp
+    src/renderer.cpp
 )
 
 target_include_directories(

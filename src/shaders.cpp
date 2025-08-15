@@ -1,6 +1,15 @@
 #include "shaders.h"
 
-std::string Shaders::readShader(const std::string& filepath)
+Shaders::Shaders(std::string vertexShader, std::string fragmentShader)
+{
+    std::string vertexShaderSource = readShader(vertexShader);
+    std::string fragmentShaderSource = readShader(fragmentShader);
+    createShaders(vertexShaderSource, fragmentShaderSource);
+}
+
+Shaders::~Shaders(){ glDeleteProgram(m_ShaderProgram); }
+
+std::string Shaders::readShader(const std::string &filepath)
 {
     std::ifstream file(filepath);
     if (!file.is_open())
@@ -43,6 +52,7 @@ unsigned int Shaders::compileShader(unsigned int type, const std::string& source
 unsigned int Shaders::createShaders(const std::string& vertexShader, const std::string& fragmentShader)
 {
     unsigned int program = glCreateProgram();
+    m_ShaderProgram = program;
     unsigned int vs = compileShader(GL_VERTEX_SHADER, vertexShader);
     unsigned int fs = compileShader(GL_FRAGMENT_SHADER, fragmentShader);
     
