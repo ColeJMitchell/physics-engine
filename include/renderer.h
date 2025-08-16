@@ -11,19 +11,34 @@
 class Renderer
 {
     public:
-        Renderer(VertexBuffer& vertexBuffer, VertexArray& vertexArray, IndexBuffer& indexBuffer, Shaders& shaders):
-        m_VertexBuffer(vertexBuffer), m_VertexArray(vertexArray), m_IndexBuffer(indexBuffer), m_Shaders(shaders){}
+        float vertices[8] = 
+        {
+            -0.5f, -0.5f,
+            0.5f,  -0.5f,
+            0.5f, 0.5f,
+            -0.5f, 0.5f,
+        };
+    
+
+        unsigned int indices[6] = 
+        {
+            0, 1, 2, 
+            2, 3, 0  
+        };
 
         ~Renderer();
 
-        void setupWindow();
-        
-        void renderLoop();
+        int setupWindow();
+
+        void initRenderObjects();
+
+        void startRenderLoop();
 
     private:
-        GLFWwindow* m_Window;
-        VertexBuffer m_VertexBuffer;
-        VertexArray m_VertexArray;
-        IndexBuffer m_IndexBuffer;
-        Shaders m_Shaders;
+        GLFWwindow* m_Window; 
+        VertexBuffer* m_VBO;
+        VertexArray* m_VAO;
+        IndexBuffer* m_IBO;
+        Shaders* m_Shaders;
+        unsigned int m_ShaderProgram;      
 };

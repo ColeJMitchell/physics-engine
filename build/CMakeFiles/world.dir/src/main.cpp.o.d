@@ -1,5 +1,6 @@
 CMakeFiles/world.dir/src/main.cpp.o: \
  /home/cole/github/physics-engine/src/main.cpp /usr/include/stdc-predef.h \
+ /home/cole/github/physics-engine/include/renderer.h \
  /usr/include/GL/glew.h /usr/include/c++/11/cstddef \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -162,5 +163,4 @@ CMakeFiles/world.dir/src/main.cpp.o: \
  /usr/include/c++/11/fstream /usr/include/c++/11/bits/codecvt.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
- /usr/include/c++/11/bits/fstream.tcc \
- /home/cole/github/physics-engine/include/renderer.h
+ /usr/include/c++/11/bits/fstream.tcc
