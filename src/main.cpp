@@ -50,10 +50,16 @@ int main()
         0, 1, 2, 
         2, 3, 0  
     };
-    
-    std::string vertexShader = Shaders::readShader("../shaders/vertex.glsl");
-    std::string fragmentShader = Shaders::readShader("../shaders/fragment.glsl");
-    unsigned int shaderProgram = Shaders::createShaders(vertexShader, fragmentShader);
+
+    VertexBuffer vertexBuffer(vertices, (sizeof(vertices) / sizeof(vertices[0])));  
+    VertexArray vertexArray;
+    vertexArray.addBufferElement(GL_FLOAT, 2);
+    vertexArray.processBufferLayout();
+    IndexBuffer indexBuffer(indices, sizeof(indices) / sizeof(indices[0]));
+
+
+    Shaders shaders("../shaders/vertex.glsl", "../shaders/fragment.glsl");
+    unsigned int shaderProgram = shaders.getShaderProgram();
 
     if (shaderProgram == 0) 
     {
@@ -62,14 +68,7 @@ int main()
         glfwTerminate();
         return -1;
     }
-    
-    VertexBuffer vertexBuffer(vertices, (sizeof(vertices) / sizeof(vertices[0])));  
-    VertexArray vertexArray;
-    vertexArray.addBufferElement(GL_FLOAT, 2);
-    vertexArray.processBufferLayout();
 
-    IndexBuffer indexBuffer(indices, sizeof(indices) * sizeof(indices[0]));
-    
     glUseProgram(shaderProgram);
     int location = glGetUniformLocation(shaderProgram, "u_Color");
     glUniform4f(location, 1.0f, 1.0f, 1.0f, 1.0f); 
@@ -77,17 +76,15 @@ int main()
     while(!glfwWindowShouldClose(window))
     {
         glClear(GL_COLOR_BUFFER_BIT);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+        glDrawElements(GL_TRIANGLES, sizeof(indices), GL_UNSIGNED_INT, nullptr);
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
     
     //cleanup
-    glDeleteProgram(shaderProgram);
     vertexArray.unbind();
     vertexBuffer.unbind();
     indexBuffer.unbind();
-
     glfwDestroyWindow(window);
     glfwTerminate();
     return 0;

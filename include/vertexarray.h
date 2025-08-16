@@ -1,3 +1,4 @@
+#pragma once
 #include <GL/glew.h>
 #include <vector>
 #include "debugging.h"
@@ -34,25 +35,33 @@ class VertexArray
                 case GL_BYTE:
                     return 1;
                 default:
-                    return -1;
+                    return 0;
             }
         }
-
+    
         void addBufferElement(unsigned int vertexType, unsigned int vertexCount)
         {
-            m_BufferLayout.push_back({vertexCount, vertexCount * getEnumByteSize(vertexType), vertexType, sizeof(m_BufferLayout), true});
+            unsigned int byteSize = vertexCount * getEnumByteSize(vertexType);
+            BufferElement element = {vertexCount, byteSize, vertexType, m_Stride, true};
+            m_BufferLayout.push_back(element);
+            m_Stride += byteSize; 
         }
 
         void processBufferLayout()
         {
             unsigned int counter = 0;
-            unsigned int offset = 0;
-            for(auto bufferElement : m_BufferLayout)
+            for (auto &bufferElement : m_BufferLayout)
             {
                 glEnableVertexAttribArray(counter);
-                glVertexAttribPointer(counter, bufferElement.vertexCount, bufferElement.vertexType, bufferElement.normalized, bufferElement.vertexByteSize, 0);
-                counter++;
-                offset += bufferElement.offset;
+                glVertexAttribPointer(
+                    counter,
+                    bufferElement.vertexCount,
+                    bufferElement.vertexType,
+                    bufferElement.normalized,
+                    m_Stride,                             
+                    reinterpret_cast<void*>(bufferElement.offset) 
+                );
+            counter++;
             }
         }
 
@@ -63,6 +72,7 @@ class VertexArray
         std::vector<BufferElement> getBufferElements(){ return m_BufferLayout; }
     
     private:
+        unsigned int m_Stride = 0;
         unsigned int m_VertexArrayId;
         std::vector<BufferElement> m_BufferLayout;
 };

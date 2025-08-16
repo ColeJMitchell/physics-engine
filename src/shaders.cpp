@@ -4,7 +4,7 @@ Shaders::Shaders(std::string vertexShader, std::string fragmentShader)
 {
     std::string vertexShaderSource = readShader(vertexShader);
     std::string fragmentShaderSource = readShader(fragmentShader);
-    createShaders(vertexShaderSource, fragmentShaderSource);
+    m_ShaderProgram = createShaders(vertexShaderSource, fragmentShaderSource);
 }
 
 Shaders::~Shaders(){ glDeleteProgram(m_ShaderProgram); }
@@ -68,6 +68,7 @@ unsigned int Shaders::createShaders(const std::string& vertexShader, const std::
     glLinkProgram(program);
     int linkStatus;
     glGetProgramiv(program, GL_LINK_STATUS, &linkStatus);
+    
     if (linkStatus == GL_FALSE) 
     {
         int length;
@@ -80,7 +81,7 @@ unsigned int Shaders::createShaders(const std::string& vertexShader, const std::
         glDeleteProgram(program);
         return 0;
     }
-    
+
     glValidateProgram(program);
     glDeleteShader(vs);
     glDeleteShader(fs);
