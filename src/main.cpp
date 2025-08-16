@@ -1,11 +1,4 @@
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include "vertexbuffer.h"
-#include "vertexarray.h"
-#include "indexbuffer.h"
-#include "shaders.h"
 #include "renderer.h"
-#include "debugging.h"
 
 int main()
 {
