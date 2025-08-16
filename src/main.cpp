@@ -2,7 +2,6 @@
 
 int main()
 {
-    
     Renderer renderer;
     int renderSetupStatus = renderer.setupWindow();
     if (renderSetupStatus == -1)

@@ -71,14 +71,32 @@ void Renderer::initRenderObjects()
 
 void Renderer::startRenderLoop()
 {
-    while(!glfwWindowShouldClose(m_Window))
+    float r = 0.8f;
+    float g = 0.8f;
+    float b = 0.8f;
+    float increment = -0.02f; 
+
+    while (!glfwWindowShouldClose(m_Window))
     {
         glClear(GL_COLOR_BUFFER_BIT);
+
         m_VAO->bind();
         glUseProgram(m_ShaderProgram);
+
         int location = glGetUniformLocation(m_ShaderProgram, "u_Color");
-        glUniform4f(location, 1.0f, 1.0f, 1.0f, 1.0f); 
+
+        if (r <= 0.0f) {
+            increment = 0.02f;
+        } 
+        else if (r >= 1.0f) {
+            increment = -0.02f;
+        }
+
+        r = g = b = r + increment;
+
+        glUniform4f(location, r, g, b, 1.0f); 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+
         glfwSwapBuffers(m_Window);
         glfwPollEvents();
     }
