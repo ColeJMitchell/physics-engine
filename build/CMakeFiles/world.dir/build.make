@@ -124,9 +124,10 @@ world: CMakeFiles/world.dir/src/main.cpp.o
 world: CMakeFiles/world.dir/src/shaders.cpp.o
 world: CMakeFiles/world.dir/src/renderer.cpp.o
 world: CMakeFiles/world.dir/build.make
-world: /usr/lib/x86_64-linux-gnu/libGL.so
 world: /usr/lib/x86_64-linux-gnu/libglfw.so.3.3
 world: /usr/lib/x86_64-linux-gnu/libGLEW.so
+world: /usr/lib/x86_64-linux-gnu/libGLX.so
+world: /usr/lib/x86_64-linux-gnu/libOpenGL.so
 world: CMakeFiles/world.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/cole/github/physics-engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable world"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/world.dir/link.txt --verbose=$(VERBOSE)
