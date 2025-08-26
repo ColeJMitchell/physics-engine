@@ -15,7 +15,7 @@ class IndexBuffer
         }
 
         ~IndexBuffer(){ glDeleteBuffers(1, &m_IndexBufferId); }
-
+        
         void bind(){ glBindBuffer(GL_ARRAY_BUFFER, m_IndexBufferId); }
         
         void unbind(){ glBindBuffer(GL_ARRAY_BUFFER, 0); }
