@@ -60,7 +60,9 @@ int Renderer::setupWindow()
 
 void Renderer::initRenderObjects()
 {
-    m_VBO = new VertexBuffer(vertices, (sizeof(vertices) / sizeof(vertices[0])));
+    m_Cube = new Cube();
+    
+    m_VBO = new VertexBuffer(m_Cube->getVertices(), (sizeof(vertices) / sizeof(vertices[0])));
     m_VAO = new VertexArray();
     m_IBO = new IndexBuffer(indices, sizeof(indices) / sizeof(indices[0]));
     m_Shaders = new Shaders("../shaders/vertex.glsl", "../shaders/fragment.glsl");

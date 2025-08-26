@@ -7,25 +7,11 @@
 #include "shaders.h"
 #include "renderer.h"
 #include "debugging.h"
+#include "cube.h"
 
 class Renderer
 {
     public:
-        float vertices[8] = 
-        {
-            -0.5f, -0.5f,
-            0.5f,  -0.5f,
-            0.5f, 0.5f,
-            -0.5f, 0.5f,
-        };
-    
-
-        unsigned int indices[6] = 
-        {
-            0, 1, 2, 
-            2, 3, 0  
-        };
-
         ~Renderer();
 
         int setupWindow();
@@ -40,5 +26,6 @@ class Renderer
         VertexArray* m_VAO;
         IndexBuffer* m_IBO;
         Shaders* m_Shaders;
+        Cube* m_Cube;
         unsigned int m_ShaderProgram;      
 };
