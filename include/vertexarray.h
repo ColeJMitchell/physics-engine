@@ -5,7 +5,7 @@
 
 struct BufferElement
 {
-    unsigned int vertexCount;
+    unsigned int vertexStrideCount;
     unsigned int vertexByteSize;
     unsigned int vertexType;
     unsigned int offset;
@@ -39,10 +39,10 @@ class VertexArray
             }
         }
     
-        void addBufferElement(unsigned int vertexType, unsigned int vertexCount)
+        void addBufferElement(unsigned int vertexType, unsigned int vertexStrideCount)
         {
-            unsigned int byteSize = vertexCount * getEnumByteSize(vertexType);
-            BufferElement element = {vertexCount, byteSize, vertexType, m_Stride, true};
+            unsigned int byteSize = vertexStrideCount * getEnumByteSize(vertexType);
+            BufferElement element = {vertexStrideCount, byteSize, vertexType, m_Stride, true};
             m_BufferLayout.push_back(element);
             m_Stride += byteSize; 
         }
@@ -55,7 +55,7 @@ class VertexArray
                 glEnableVertexAttribArray(counter);
                 glVertexAttribPointer(
                     counter,
-                    bufferElement.vertexCount,
+                    bufferElement.vertexStrideCount,
                     bufferElement.vertexType,
                     bufferElement.normalized,
                     m_Stride,                             
@@ -66,9 +66,7 @@ class VertexArray
         }
 
         void bind(){ glBindVertexArray(m_VertexArrayId); }
-
         void unbind(){ glBindVertexArray(0); }
-
         std::vector<BufferElement> getBufferElements(){ return m_BufferLayout; }
     
     private:

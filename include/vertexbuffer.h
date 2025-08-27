@@ -16,9 +16,7 @@ class VertexBuffer
         }
 
         ~VertexBuffer(){ glDeleteBuffers(1, &m_VertexBufferId); }
-
         void bind(){ glBindBuffer(GL_ARRAY_BUFFER, m_VertexBufferId); }
-        
         void unbind(){ glBindBuffer(GL_ARRAY_BUFFER, 0); }
 
     private:

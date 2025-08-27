@@ -9,6 +9,7 @@ Renderer::~Renderer()
     delete m_VAO;
     delete m_IBO;
     delete m_Shaders;
+    delete m_Cube;
     glfwDestroyWindow(m_Window);
     glfwTerminate();
 }
@@ -61,12 +62,11 @@ int Renderer::setupWindow()
 void Renderer::initRenderObjects()
 {
     m_Cube = new Cube();
-    
-    m_VBO = new VertexBuffer(m_Cube->getVertices(), (sizeof(vertices) / sizeof(vertices[0])));
+    m_VBO = new VertexBuffer(m_Cube->getVertices(), m_Cube->getVertexFloatCount());
     m_VAO = new VertexArray();
-    m_IBO = new IndexBuffer(indices, sizeof(indices) / sizeof(indices[0]));
+    m_IBO = new IndexBuffer(m_Cube->getIndices(), m_Cube->getIndexFloatCount());
     m_Shaders = new Shaders("../shaders/vertex.glsl", "../shaders/fragment.glsl");
-    m_VAO->addBufferElement(GL_FLOAT, 2);
+    m_VAO->addBufferElement(GL_FLOAT, m_Cube->getVertexStrideCount());
     m_VAO->processBufferLayout();
     m_ShaderProgram = m_Shaders->getShaderProgram();
 }
@@ -84,22 +84,10 @@ void Renderer::startRenderLoop()
 
         m_VAO->bind();
         glUseProgram(m_ShaderProgram);
-
-        int location = glGetUniformLocation(m_ShaderProgram, "u_Color");
-
-        if (r <= 0.0f) {
-            increment = 0.02f;
-        } 
-        else if (r >= 1.0f) {
-            increment = -0.02f;
-        }
-
-        r = g = b = r + increment;
-
-        glUniform4f(location, r, g, b, 1.0f); 
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+        glDrawElements(GL_TRIANGLES, m_Cube->getIndexFloatCount(), GL_UNSIGNED_INT, nullptr);
 
         glfwSwapBuffers(m_Window);
         glfwPollEvents();
+        Debugging::debug("Rendering Loop");
     }
 }

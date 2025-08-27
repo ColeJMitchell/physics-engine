@@ -5,13 +5,6 @@
 class Cube
 {
   public:
-    float* getVertices() { return m_Vertices; }
-    float* getIndices() { return m_Indices; }
-    int getVertexCount() { return 48; }
-    int getIndexCount() { return 36; }
-    int getVertexSize() { return 24; }
-    int getIndexSize() { return 24; }
-
     static glm::mat4 scale(float x, float y, float z, glm::mat4 model)
     {
       return glm::scale(model, glm::vec3(x, y, z));
@@ -27,22 +20,28 @@ class Cube
       return glm::translate(model, glm::vec3(x, y, z));
     }
 
-  private:
-    //there are 8 vertices which each have 6 floats
-    float m_Vertices[8 * 6] = 
-    {
-      -0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 0.0f,
-      0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-      0.5f,  0.5f, -0.5f,  0.0f, 0.0f, 1.0f,
-      -0.5f,  0.5f, -0.5f,  1.0f, 1.0f, 0.0f,
+    float* getVertices() { return m_Vertices; }
+    unsigned int* getIndices() { return m_Indices; }
+    int getVertexStrideCount() { return 3; }
+    int getVertexFloatCount() { return 24; }
+    int getIndexFloatCount() { return 36; }
 
-      -0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 1.0f,
-      0.5f, -0.5f,  0.5f,  0.0f, 1.0f, 1.0f,
-      0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 1.0f,
-      -0.5f,  0.5f,  0.5f,  0.3f, 0.3f, 0.3f
+  private:
+    //there are 8 vertices which each have 3 floats (x, y, z) to represent a cube
+    float m_Vertices[8 * 3] = 
+    {
+      -0.5f, -0.5f, -0.5f,
+      0.5f, -0.5f, -0.5f, 
+      0.5f,  0.5f, -0.5f,  
+      -0.5f,  0.5f, -0.5f, 
+      -0.5f, -0.5f,  0.5f,  
+      0.5f, -0.5f,  0.5f, 
+      0.5f,  0.5f,  0.5f, 
+      -0.5f,  0.5f,  0.5f, 
     };
 
-    float m_Indices[36] =
+    //each square face of the cube is composed of two triangles
+    unsigned int m_Indices[36] =
     {
       0, 1, 2,  2, 3, 0, 
       4, 5, 6,  6, 7, 4, 

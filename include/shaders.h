@@ -9,13 +9,9 @@ class Shaders
 {
     public:
         Shaders(std::string vertexShader, std::string fragmentShader);
-
         ~Shaders();
-
         std::string readShader(const std::string& filepath);
-
         unsigned int createShaders(const std::string& vertexShader, const std::string& fragmentShader);
-        
         unsigned int getShaderProgram(){ return m_ShaderProgram; }
 
     private:

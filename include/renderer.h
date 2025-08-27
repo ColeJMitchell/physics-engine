@@ -13,11 +13,8 @@ class Renderer
 {
     public:
         ~Renderer();
-
         int setupWindow();
-
         void initRenderObjects();
-
         void startRenderLoop();
 
     private:
