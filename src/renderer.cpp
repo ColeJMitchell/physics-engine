@@ -14,12 +14,14 @@ Renderer::~Renderer()
     glfwTerminate();
 }
 
-glm::mat4 Renderer::calculateMVP()
+glm::mat4 Renderer::calculateMVP(float xScale, float yScale, float zScale, 
+                                 float xRotate, float yRotate, float zRotate, float radians)
 {
     glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
     glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -3)); 
     glm::mat4 model = glm::mat4(1.0f);
-    model = Cube::rotate(0, 1, 0, glm::radians(45.0f), model);
+    model = Cube::scale(xScale, yScale, zScale, model);
+    model = Cube::rotate(xRotate, yRotate, zRotate, glm::radians(radians), model);
     glm::mat4 mvp = projection * view * model;
     return mvp;
 }
@@ -83,16 +85,33 @@ void Renderer::initRenderObjects()
 
 void Renderer::startRenderLoop()
 {
-    float r = 0.8f;
-    float g = 0.8f;
-    float b = 0.8f;
-    float increment = -0.02f; 
-
+    float radians = 0;
+    bool radiansIncreasing = true;
     while (!glfwWindowShouldClose(m_Window))
     {
         glClear(GL_COLOR_BUFFER_BIT);
         int location = glGetUniformLocation(m_ShaderProgram, "u_MVP");
-        glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(calculateMVP()));
+        
+        if (radiansIncreasing) 
+        {
+            radians += 10;
+        } 
+        else 
+        {
+            radians -= 10;
+        }
+
+        if (radians >= 360)
+        {
+            radiansIncreasing = false;
+        }
+        else if (radians <= 0)
+        {
+            radiansIncreasing = true;
+        }
+
+        glm::mat4 mvp = calculateMVP(2, 1, 1, 0, 1, 0, radians);
+        glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(mvp));
 
         m_VAO->bind();
         glUseProgram(m_ShaderProgram);

@@ -16,7 +16,8 @@ class Renderer
 {
     public:
         ~Renderer();
-        glm::mat4 calculateMVP();
+        glm::mat4 calculateMVP(float xScale, float yScale, float zScale, 
+                               float xRotate, float yRotate, float zRotate, float radians);
         int setupWindow();
         void initRenderObjects();
         void startRenderLoop();
