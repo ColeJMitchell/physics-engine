@@ -26,7 +26,8 @@ class Renderer
         GLFWwindow* m_Window; 
         VertexBuffer* m_VBO;
         VertexArray* m_VAO;
-        IndexBuffer* m_IBO;
+        IndexBuffer* m_FaceIBO;
+        IndexBuffer* m_EdgeIBO;
         Shaders* m_Shaders;
         Cube* m_Cube;
         unsigned int m_ShaderProgram;      

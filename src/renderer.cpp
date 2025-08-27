@@ -4,10 +4,12 @@ Renderer::~Renderer()
 {
     m_VBO->unbind();
     m_VAO->unbind();
-    m_IBO->unbind();
+    m_FaceIBO->unbind();
+    m_EdgeIBO->unbind();
     delete m_VBO;
     delete m_VAO;
-    delete m_IBO;
+    delete m_FaceIBO;
+    delete m_EdgeIBO;
     delete m_Shaders;
     delete m_Cube;
     glfwDestroyWindow(m_Window);
@@ -17,8 +19,8 @@ Renderer::~Renderer()
 glm::mat4 Renderer::calculateMVP(float xScale, float yScale, float zScale, 
                                  float xRotate, float yRotate, float zRotate, float radians)
 {
-    glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
-    glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -3)); 
+    glm::mat4 projection = glm::perspective(glm::radians(45.0f), 1200.0f / 900.0f, 0.1f, 100.0f);
+    glm::mat4 view = Cube::translate(0, 0, -5, glm::mat4(1.0f)); 
     glm::mat4 model = glm::mat4(1.0f);
     model = Cube::scale(xScale, yScale, zScale, model);
     model = Cube::rotate(xRotate, yRotate, zRotate, glm::radians(radians), model);
@@ -34,7 +36,8 @@ int Renderer::setupWindow()
         return -1;
     }
 
-    m_Window = glfwCreateWindow(800, 600, "Physics Engine", nullptr, nullptr);
+    m_Window = glfwCreateWindow(1200, 900, "Physics Engine", nullptr, nullptr);
+    glViewport(0, 0, 1200, 900);
 
     if(!m_Window)
     {
@@ -76,7 +79,8 @@ void Renderer::initRenderObjects()
     m_Cube = new Cube();
     m_VBO = new VertexBuffer(m_Cube->getVertices(), m_Cube->getVertexFloatCount());
     m_VAO = new VertexArray();
-    m_IBO = new IndexBuffer(m_Cube->getIndices(), m_Cube->getIndexFloatCount());
+    m_FaceIBO = new IndexBuffer(m_Cube->getFaceIndices(), m_Cube->getFaceIndexFloatCount());
+    m_EdgeIBO = new IndexBuffer(m_Cube->getEdgeIndices(), m_Cube->getEdgeIndexFloatCount());
     m_Shaders = new Shaders("../shaders/vertex.glsl", "../shaders/fragment.glsl");
     m_VAO->addBufferElement(GL_FLOAT, m_Cube->getVertexStrideCount());
     m_VAO->processBufferLayout();
@@ -85,37 +89,34 @@ void Renderer::initRenderObjects()
 
 void Renderer::startRenderLoop()
 {
-    float radians = 0;
-    bool radiansIncreasing = true;
+    int radians = 0;
+    int frames = 0;
+    glEnable(GL_DEPTH_TEST);
     while (!glfwWindowShouldClose(m_Window))
     {
-        glClear(GL_COLOR_BUFFER_BIT);
-        int location = glGetUniformLocation(m_ShaderProgram, "u_MVP");
-        
-        if (radiansIncreasing) 
-        {
-            radians += 10;
-        } 
-        else 
-        {
-            radians -= 10;
-        }
-
-        if (radians >= 360)
-        {
-            radiansIncreasing = false;
-        }
-        else if (radians <= 0)
-        {
-            radiansIncreasing = true;
-        }
-
-        glm::mat4 mvp = calculateMVP(2, 1, 1, 0, 1, 0, radians);
-        glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(mvp));
-
-        m_VAO->bind();
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glUseProgram(m_ShaderProgram);
-        glDrawElements(GL_TRIANGLES, m_Cube->getIndexFloatCount(), GL_UNSIGNED_INT, nullptr);
+        m_VAO->bind();
+
+        int location = glGetUniformLocation(m_ShaderProgram, "u_MVP");
+
+        frames += 1;
+        if(frames % 15 == 0) { radians += 10; }
+        glm::mat4 mvp = calculateMVP(1, 1, 1, 1, 0, 1, radians);
+        glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(mvp));
+        
+        int colorLocation = glGetUniformLocation(m_ShaderProgram, "u_Color");
+
+        glUniform3f(colorLocation, 1.0f, 0.0f, 0.0f);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        m_FaceIBO->bind();
+        glDrawElements(GL_TRIANGLES, m_Cube->getFaceIndexFloatCount(), GL_UNSIGNED_INT, nullptr);
+
+        glUniform3f(colorLocation, 0.0f, 0.0f, 0.0f);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glLineWidth(2.0f);
+        m_EdgeIBO->bind(); 
+        glDrawElements(GL_LINES, m_Cube->getEdgeIndexFloatCount(), GL_UNSIGNED_INT, nullptr);
 
         glfwSwapBuffers(m_Window);
         glfwPollEvents();
