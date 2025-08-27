@@ -14,6 +14,16 @@ Renderer::~Renderer()
     glfwTerminate();
 }
 
+glm::mat4 Renderer::calculateMVP()
+{
+    glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+    glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -3)); 
+    glm::mat4 model = glm::mat4(1.0f);
+    model = Cube::rotate(0, 1, 0, glm::radians(45.0f), model);
+    glm::mat4 mvp = projection * view * model;
+    return mvp;
+}
+
 int Renderer::setupWindow()
 {
     if(!glfwInit())
@@ -81,6 +91,8 @@ void Renderer::startRenderLoop()
     while (!glfwWindowShouldClose(m_Window))
     {
         glClear(GL_COLOR_BUFFER_BIT);
+        int location = glGetUniformLocation(m_ShaderProgram, "u_MVP");
+        glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(calculateMVP()));
 
         m_VAO->bind();
         glUseProgram(m_ShaderProgram);
@@ -88,6 +100,5 @@ void Renderer::startRenderLoop()
 
         glfwSwapBuffers(m_Window);
         glfwPollEvents();
-        Debugging::debug("Rendering Loop");
     }
 }
