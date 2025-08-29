@@ -83,14 +83,16 @@ void Renderer::initRenderObjects()
 glm::mat4 Renderer::calculateMVP(float xTranslate, float yTranslate, float zTranslate,
                                  float xScale, float yScale, float zScale, 
                                  float xRotate, float yRotate, float zRotate, float radians)
-    {
-      glm::mat4 projection = glm::perspective(glm::radians(45.0f), 1200.0f / 900.0f, 0.1f, 100.0f);
-      glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(xTranslate, yTranslate, zTranslate)); 
-      glm::mat4 model = glm::scale(glm::mat4(1.0f), glm::vec3(xScale, yScale, zScale));
-      model = glm::rotate(model, glm::radians(radians), glm::vec3(xRotate, yRotate, zRotate));
-      glm::mat4 mvp = projection * view * model;
-      return mvp;
-    }
+{
+    glm::mat4 projection = glm::perspective(glm::radians(45.0f), 1200.0f / 900.0f, 0.1f, 100.0f);
+    glm::mat4 view = glm::lookAt(m_Camera->eye, m_Camera->center, m_Camera->up);
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(xTranslate, yTranslate, zTranslate)); 
+    model = glm::rotate(model, glm::radians(radians), glm::vec3(xRotate, yRotate, zRotate));
+    model = glm::scale(model, glm::vec3(xScale, yScale, zScale));
+    glm::mat4 mvp = projection * view * model;
+    return mvp;
+}
 
 void Renderer::renderCube(float xTranslate, float yTranslate, float zTranslate,
                           float xScale, float yScale, float zScale, 
