@@ -12,6 +12,7 @@ Renderer::~Renderer()
     delete m_EdgeIBO;
     delete m_Shaders;
     delete m_Cube;
+    delete m_Camera;
     glfwDestroyWindow(m_Window);
     glfwTerminate();
 }
@@ -64,6 +65,10 @@ int Renderer::setupWindow()
 
 void Renderer::initRenderObjects()
 {
+    m_Camera = new Camera(glm::vec3(0.0f, 0.0f, 5.0f),
+                          glm::vec3(0.0f, 0.0f, 0.0f),
+                          glm::vec3(0.0f, 1.0f, 0.0f));
+
     m_Cube = new Cube();
     m_VBO = new VertexBuffer(m_Cube->getVertices(), m_Cube->getVertexFloatCount());
     m_VAO = new VertexArray();
@@ -75,14 +80,25 @@ void Renderer::initRenderObjects()
     m_ShaderProgram = m_Shaders->getShaderProgram();
 }
 
+glm::mat4 Renderer::calculateMVP(float xTranslate, float yTranslate, float zTranslate,
+                                 float xScale, float yScale, float zScale, 
+                                 float xRotate, float yRotate, float zRotate, float radians)
+    {
+      glm::mat4 projection = glm::perspective(glm::radians(45.0f), 1200.0f / 900.0f, 0.1f, 100.0f);
+      glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(xTranslate, yTranslate, zTranslate)); 
+      glm::mat4 model = glm::scale(glm::mat4(1.0f), glm::vec3(xScale, yScale, zScale));
+      model = glm::rotate(model, glm::radians(radians), glm::vec3(xRotate, yRotate, zRotate));
+      glm::mat4 mvp = projection * view * model;
+      return mvp;
+    }
+
 void Renderer::renderCube(float xTranslate, float yTranslate, float zTranslate,
                           float xScale, float yScale, float zScale, 
                           float xRotate, float yRotate, float zRotate, float radians)
 {
-    //first three floats are scale, second three are rotation (x, y, z)
-    glm::mat4 mvp = Cube::calculateMVP(xTranslate, yTranslate, zTranslate,
-                                       xScale, yScale, zScale,
-                                       xRotate, yRotate, zRotate, radians);
+    glm::mat4 mvp = calculateMVP(xTranslate, yTranslate, zTranslate,
+                                 xScale, yScale, zScale,
+                                 xRotate, yRotate, zRotate, radians);
 
     int location = glGetUniformLocation(m_ShaderProgram, "u_MVP");
     glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(mvp));
@@ -114,6 +130,10 @@ void Renderer::startRenderLoop()
 
         frames += 1;
         if(frames % 15 == 0) { radians += 10; }
+
+        //first three floats are translation
+        //second three floats are scale
+        //last three are rotation (x, y, z)
         renderCube(-3, 0, -10, 2, 1, 1, 1, 0, 0, radians);
         renderCube(0, 0, -10, 1, 2, 1, 1, 0, 0, radians);
         renderCube(3, 0, -10, 1, 1, 2, 1, 0, 0, radians);
