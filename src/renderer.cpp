@@ -16,18 +16,6 @@ Renderer::~Renderer()
     glfwTerminate();
 }
 
-glm::mat4 Renderer::calculateMVP(float xScale, float yScale, float zScale, 
-                                 float xRotate, float yRotate, float zRotate, float radians)
-{
-    glm::mat4 projection = glm::perspective(glm::radians(45.0f), 1200.0f / 900.0f, 0.1f, 100.0f);
-    glm::mat4 view = Cube::translate(0, 0, -5, glm::mat4(1.0f)); 
-    glm::mat4 model = glm::mat4(1.0f);
-    model = Cube::scale(xScale, yScale, zScale, model);
-    model = Cube::rotate(xRotate, yRotate, zRotate, glm::radians(radians), model);
-    glm::mat4 mvp = projection * view * model;
-    return mvp;
-}
-
 int Renderer::setupWindow()
 {
     if(!glfwInit())
@@ -87,6 +75,32 @@ void Renderer::initRenderObjects()
     m_ShaderProgram = m_Shaders->getShaderProgram();
 }
 
+void Renderer::renderCube(float xTranslate, float yTranslate, float zTranslate,
+                          float xScale, float yScale, float zScale, 
+                          float xRotate, float yRotate, float zRotate, float radians)
+{
+    //first three floats are scale, second three are rotation (x, y, z)
+    glm::mat4 mvp = Cube::calculateMVP(xTranslate, yTranslate, zTranslate,
+                                       xScale, yScale, zScale,
+                                       xRotate, yRotate, zRotate, radians);
+
+    int location = glGetUniformLocation(m_ShaderProgram, "u_MVP");
+    glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(mvp));
+       
+    int colorLocation = glGetUniformLocation(m_ShaderProgram, "u_Color");
+
+    glUniform3f(colorLocation, 1.0f, 0.0f, 0.0f);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    m_FaceIBO->bind();
+    glDrawElements(GL_TRIANGLES, m_Cube->getFaceIndexFloatCount(), GL_UNSIGNED_INT, nullptr);
+
+    glUniform3f(colorLocation, 0.0f, 0.0f, 0.0f);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glLineWidth(2.0f);
+    m_EdgeIBO->bind(); 
+    glDrawElements(GL_LINES, m_Cube->getEdgeIndexFloatCount(), GL_UNSIGNED_INT, nullptr);
+}
+
 void Renderer::startRenderLoop()
 {
     int radians = 0;
@@ -98,25 +112,11 @@ void Renderer::startRenderLoop()
         glUseProgram(m_ShaderProgram);
         m_VAO->bind();
 
-        int location = glGetUniformLocation(m_ShaderProgram, "u_MVP");
-
         frames += 1;
         if(frames % 15 == 0) { radians += 10; }
-        glm::mat4 mvp = calculateMVP(1, 1, 1, 1, 0, 1, radians);
-        glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(mvp));
-        
-        int colorLocation = glGetUniformLocation(m_ShaderProgram, "u_Color");
-
-        glUniform3f(colorLocation, 1.0f, 0.0f, 0.0f);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        m_FaceIBO->bind();
-        glDrawElements(GL_TRIANGLES, m_Cube->getFaceIndexFloatCount(), GL_UNSIGNED_INT, nullptr);
-
-        glUniform3f(colorLocation, 0.0f, 0.0f, 0.0f);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        glLineWidth(2.0f);
-        m_EdgeIBO->bind(); 
-        glDrawElements(GL_LINES, m_Cube->getEdgeIndexFloatCount(), GL_UNSIGNED_INT, nullptr);
+        renderCube(-3, 0, -10, 1, 1, 1, 1, 0, 1, radians);
+        renderCube(0, 0, -10, 1, 1, 1, 1, 0, 1, radians);
+        renderCube(3, 0, -10, 1, 1, 1, 1, 0, 1, radians);
 
         glfwSwapBuffers(m_Window);
         glfwPollEvents();

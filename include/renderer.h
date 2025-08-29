@@ -16,8 +16,10 @@ class Renderer
 {
     public:
         ~Renderer();
-        glm::mat4 calculateMVP(float xScale, float yScale, float zScale, 
-                               float xRotate, float yRotate, float zRotate, float radians);
+        void renderCube(float xTranslate, float yTranslate, float zTranslate,
+                        float xScale, float yScale, float zScale, 
+                        float xRotate, float yRotate, float zRotate, float radians);
+                        
         int setupWindow();
         void initRenderObjects();
         void startRenderLoop();
