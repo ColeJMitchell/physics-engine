@@ -10,27 +10,11 @@ class Cube
                                   float xRotate, float yRotate, float zRotate, float radians)
     {
       glm::mat4 projection = glm::perspective(glm::radians(45.0f), 1200.0f / 900.0f, 0.1f, 100.0f);
-      glm::mat4 view = Cube::translate(xTranslate, yTranslate, zTranslate, glm::mat4(1.0f)); 
-      glm::mat4 model = glm::mat4(1.0f);
-      model = Cube::scale(xScale, yScale, zScale, model);
-      model = Cube::rotate(xRotate, yRotate, zRotate, glm::radians(radians), model);
+      glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(xTranslate, yTranslate, zTranslate)); 
+      glm::mat4 model = glm::scale(glm::mat4(1.0f), glm::vec3(xScale, yScale, zScale));
+      model = glm::rotate(model, glm::radians(radians), glm::vec3(xRotate, yRotate, zRotate));
       glm::mat4 mvp = projection * view * model;
       return mvp;
-    }
-
-    static glm::mat4 scale(float x, float y, float z, glm::mat4 model)
-    {
-      return glm::scale(model, glm::vec3(x, y, z));
-    }
-    
-    static glm::mat4 rotate(float x, float y, float z, float radians, glm::mat4 model)
-    {
-      return glm::rotate(model, radians, glm::vec3(x, y, z));
-    }
-
-    static glm::mat4 translate(float x, float y, float z, glm::mat4 model)
-    {
-      return glm::translate(model, glm::vec3(x, y, z));
     }
 
     float* getVertices() { return m_Vertices; }

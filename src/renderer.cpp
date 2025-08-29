@@ -114,9 +114,9 @@ void Renderer::startRenderLoop()
 
         frames += 1;
         if(frames % 15 == 0) { radians += 10; }
-        renderCube(-3, 0, -10, 1, 1, 1, 1, 0, 1, radians);
-        renderCube(0, 0, -10, 1, 1, 1, 1, 0, 1, radians);
-        renderCube(3, 0, -10, 1, 1, 1, 1, 0, 1, radians);
+        renderCube(-3, 0, -10, 2, 1, 1, 1, 0, 0, radians);
+        renderCube(0, 0, -10, 1, 2, 1, 1, 0, 0, radians);
+        renderCube(3, 0, -10, 1, 1, 2, 1, 0, 0, radians);
 
         glfwSwapBuffers(m_Window);
         glfwPollEvents();
