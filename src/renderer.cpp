@@ -65,10 +65,7 @@ int Renderer::setupWindow()
 
 void Renderer::initRenderObjects()
 {
-    m_Camera = new Camera(glm::vec3(0.0f, 0.0f, 5.0f),
-                          glm::vec3(0.0f, 0.0f, 0.0f),
-                          glm::vec3(0.0f, 1.0f, 0.0f));
-
+    m_Camera = new Camera();
     m_Cube = new Cube();
     m_VBO = new VertexBuffer(m_Cube->getVertices(), m_Cube->getVertexFloatCount());
     m_VAO = new VertexArray();
@@ -82,7 +79,8 @@ void Renderer::initRenderObjects()
 
 glm::mat4 Renderer::calculateMVP(float xTranslate, float yTranslate, float zTranslate,
                                  float xScale, float yScale, float zScale, 
-                                 float xRotate, float yRotate, float zRotate, float radians)
+                                 float xRotate, float yRotate, float zRotate, float radians
+                                )
 {
     glm::mat4 projection = glm::perspective(glm::radians(45.0f), 1200.0f / 900.0f, 0.1f, 100.0f);
     glm::mat4 view = glm::lookAt(m_Camera->eye, m_Camera->center, m_Camera->up);

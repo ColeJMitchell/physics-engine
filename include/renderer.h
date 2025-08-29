@@ -11,16 +11,7 @@
 #include "renderer.h"
 #include "debugging.h"
 #include "cube.h"
-
-struct Camera
-{
-    glm::vec3 eye;
-    glm::vec3 center;
-    glm::vec3 up;
-
-    Camera(glm::vec3 e, glm::vec3 c, glm::vec3 u): 
-           eye(e), center(c), up(u) {}
-};
+#include "camera.h"
 
 class Renderer
 {
