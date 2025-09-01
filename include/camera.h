@@ -21,6 +21,10 @@ class Camera
             return mvp;
         }
 
+        static void updateEyeXPosition(float xSpeed) { m_Eye.x += xSpeed; }
+        static void updateEyeYPosition(float ySpeed) { m_Eye.y += ySpeed; }
+        static void updateEyeZPosition(float zSpeed) { m_Eye.z += zSpeed; }
+
     private:
         inline static glm::vec3 m_Eye = glm::vec3(0.0f, 0.0f, 5.0f);
         inline static glm::vec3 m_Center = glm::vec3(0.0f, 0.0f, 0.0f);

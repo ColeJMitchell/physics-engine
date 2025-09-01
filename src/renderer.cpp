@@ -12,7 +12,6 @@ Renderer::~Renderer()
     delete m_EdgeIBO;
     delete m_Shaders;
     delete m_Cube;
-    delete m_Camera;
     glfwDestroyWindow(m_Window);
     glfwTerminate();
 }
@@ -65,7 +64,6 @@ int Renderer::setupWindow()
 
 void Renderer::initRenderObjects()
 {
-    m_Camera = new Camera();
     m_Cube = new Cube();
     m_VBO = new VertexBuffer(m_Cube->getVertices(), m_Cube->getVertexFloatCount());
     m_VAO = new VertexArray();
@@ -84,6 +82,11 @@ void Renderer::startRenderLoop()
     glEnable(GL_DEPTH_TEST);
     while (!glfwWindowShouldClose(m_Window))
     {
+        if(glfwGetKey(m_Window, GLFW_KEY_W) == GLFW_PRESS){ Camera::updateEyeYPosition(.2); }
+        if(glfwGetKey(m_Window, GLFW_KEY_A) == GLFW_PRESS){ Camera::updateEyeYPosition(-.2); }
+        if(glfwGetKey(m_Window, GLFW_KEY_S) == GLFW_PRESS){ Camera::updateEyeXPosition(.2); }
+        if(glfwGetKey(m_Window, GLFW_KEY_D) == GLFW_PRESS){ Camera::updateEyeXPosition(-.2); }
+
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glUseProgram(m_ShaderProgram);
         m_VAO->bind();
