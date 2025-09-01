@@ -1,5 +1,3 @@
-#include 
-
 class Material
 {
     public:
@@ -11,8 +9,5 @@ class Material
             PLA,
             PTEG
         };
-
         int getMaterialColor();
-
-
 };
