@@ -21,23 +21,67 @@ class Camera
             return mvp;
         }
 
-        static void updateEyeZPosition(float zSpeed) 
+        static void updateCameraXPosition(float xSpeed) 
         { 
-            glm::vec3 forward = glm::normalize(m_Center - m_Eye);
-            m_Eye += forward * zSpeed;
-            m_Center += forward * zSpeed;
+            glm::vec3 zDirection = glm::normalize(m_Center - m_Eye);
+            glm::vec3 xDirection = glm::normalize(glm::cross(m_Up, zDirection));
+            m_Eye += xDirection * xSpeed;
+            m_Center += xDirection * xSpeed;
         }
 
-        static void updateEyeXPosition(float xSpeed) 
+        static void updateCameraYPosition(float ySpeed) 
         { 
-            glm::vec3 forward = glm::normalize(m_Center - m_Eye);
-            glm::vec3 horizontal = glm::normalize(glm::cross(m_Up, forward));
-            m_Eye += horizontal * xSpeed;
-            m_Center += horizontal * xSpeed;
+            glm::vec3 zDirection = glm::normalize(m_Center - m_Eye);
+            glm::vec3 xDirection = glm::normalize(glm::cross(zDirection, m_Up));
+            glm::vec3 yDirection = glm::normalize(glm::cross(xDirection, zDirection));
+
+            m_Eye += yDirection * ySpeed;
+            m_Center += yDirection * ySpeed;
+        }
+
+        static void updateCameraZPosition(float zSpeed) 
+        { 
+            glm::vec3 zDirection = glm::normalize(m_Center - m_Eye);
+            m_Eye += zDirection * zSpeed;
+            m_Center += zDirection * zSpeed;
+        }
+
+        static void mouseCallback(GLFWwindow* window, double mouseXPos, double mouseYPos)
+        {
+            if (m_FirstMouseCallback)
+            {
+                m_PreviousMouseXPos = mouseXPos;
+                m_PreviousMouseYPos = mouseYPos;
+                m_FirstMouseCallback = false;
+            }
+
+            float mouseXPosOffset = (mouseXPos - m_PreviousMouseXPos) * m_Sensitivity;
+            float mouseYPosOffset = (m_PreviousMouseYPos - mouseYPos) * m_Sensitivity;
+            m_PreviousMouseXPos = mouseXPos;
+            m_PreviousMouseYPos = mouseYPos;
+            
+            m_Pitch += mouseYPosOffset;
+            m_Yaw += mouseXPosOffset;
+
+            if (m_Pitch > 89.0f) { m_Pitch = 89.0f; }
+            if (m_Pitch < -89.0f) { m_Pitch = -89.0f; }
+
+            glm::vec3 mouseDirection;
+            mouseDirection.x = cos(glm::radians(m_Pitch)) * cos(glm::radians(m_Yaw));
+            mouseDirection.y = sin(glm::radians(m_Pitch));
+            mouseDirection.z = sin(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
+
+            m_Center = m_Eye + glm::normalize(mouseDirection);
         }
         
     private:
         inline static glm::vec3 m_Eye = glm::vec3(0.0f, 0.0f, 5.0f);
         inline static glm::vec3 m_Center = glm::vec3(0.0f, 0.0f, 0.0f);
         inline static glm::vec3 m_Up = glm::vec3(0.0f, 1.0f, 0.0f);
+        inline static bool m_FirstMouseCallback = true;
+        inline static float m_PreviousMouseXPos = 0.0f;
+        inline static float m_PreviousMouseYPos = 0.0f;
+        inline static float m_Pitch = 0.0f;
+        inline static float m_Yaw = -90.0f;
+        inline static float m_Sensitivity = .1f;
 };

@@ -29,5 +29,7 @@ class Renderer
         IndexBuffer* m_FaceIBO;
         IndexBuffer* m_EdgeIBO;
         Shaders* m_Shaders;
-        unsigned int m_ShaderProgram;      
+        unsigned int m_ShaderProgram;
+        double m_ScreenHeight = 1200;
+        double m_ScreenWidth = 900;      
 };

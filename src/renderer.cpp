@@ -24,7 +24,7 @@ int Renderer::setupWindow()
         return -1;
     }
 
-    m_Window = glfwCreateWindow(1200, 900, "Physics Engine", nullptr, nullptr);
+    m_Window = glfwCreateWindow(m_ScreenHeight, m_ScreenWidth, "Physics Engine", nullptr, nullptr);
     glViewport(0, 0, 1200, 900);
 
     if(!m_Window)
@@ -80,12 +80,19 @@ void Renderer::startRenderLoop()
     int radians = 0;
     int frames = 0;
     glEnable(GL_DEPTH_TEST);
+    glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetCursorPosCallback(m_Window, Camera::mouseCallback);
+
     while (!glfwWindowShouldClose(m_Window))
     {
-        if(glfwGetKey(m_Window, GLFW_KEY_W) == GLFW_PRESS){ Camera::updateEyeZPosition(.1); }
-        if(glfwGetKey(m_Window, GLFW_KEY_S) == GLFW_PRESS){ Camera::updateEyeZPosition(-.1); }
-        if(glfwGetKey(m_Window, GLFW_KEY_D) == GLFW_PRESS){ Camera::updateEyeXPosition(-.1); }
-        if(glfwGetKey(m_Window, GLFW_KEY_A) == GLFW_PRESS){ Camera::updateEyeXPosition(.1); }
+        //player character
+        if(glfwGetKey(m_Window, GLFW_KEY_W) == GLFW_PRESS){ Camera::updateCameraZPosition(.1); }
+        if(glfwGetKey(m_Window, GLFW_KEY_S) == GLFW_PRESS){ Camera::updateCameraZPosition(-.1); }
+        if(glfwGetKey(m_Window, GLFW_KEY_A) == GLFW_PRESS){ Camera::updateCameraXPosition(.1); }
+        if(glfwGetKey(m_Window, GLFW_KEY_D) == GLFW_PRESS){ Camera::updateCameraXPosition(-.1); }
+        if(glfwGetKey(m_Window, GLFW_KEY_UP) == GLFW_PRESS){ Camera::updateCameraYPosition(.1);}
+        if(glfwGetKey(m_Window, GLFW_KEY_DOWN) == GLFW_PRESS){ Camera::updateCameraYPosition(-.1); }
+        glfwSetCursorPos(m_Window, m_ScreenWidth / 2, m_ScreenHeight / 2);
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glUseProgram(m_ShaderProgram);
