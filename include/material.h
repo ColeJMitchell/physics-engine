@@ -34,18 +34,40 @@ class Material
                     return glm::vec3(184.0f/255.0f, 115.0f/255.0f, 51.0f/255.0f);  
 
                 case PLA:
-                    // #EAEAEA
-                    return glm::vec3(234.0f/255.0f, 234.0f/255.0f, 234.0f/255.0f); 
+                    // #FF0000
+                    return glm::vec3(255.0f, 0.0f, 0.0f); 
 
                 case PETG: 
                     // #000000
-                    return glm::vec3(192.0f/255.0f, 224.0f/255.0f, 255.0f/255.0f); 
+                    return glm::vec3(0.0f, 0.0f, 0.0f); 
 
                 default:
-                    return glm::vec3(1.0f, 1.0f, 1.0f); // fallback = white
-    }
-}
+                    // #FFFFFF
+                    return glm::vec3(1.0f, 1.0f, 1.0f); 
+            }
+        }
 
+        //units are in kg/m^3
+        float getMaterialDensity()
+        {
+            switch (m_Material)
+            {
+                case STEEL:
+                    return 7850.0f;
+
+                case ALUMINIUM:
+                    return 2700.0f;
+
+                case COPPER:
+                    return 8960.0f;
+
+                case PLA:
+                    return 1240.0f;
+
+                case PETG:
+                    return 1270.0f;
+            }
+        }
 
         private:
             MaterialType m_Material;

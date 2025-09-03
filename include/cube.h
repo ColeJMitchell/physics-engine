@@ -4,6 +4,8 @@
 #include <glm/gtc/type_ptr.hpp> 
 #include "camera.h"
 #include "indexbuffer.h"
+#include "material.h"
+#include "physicsobject.h"
 
 class CubeRenderer
 {

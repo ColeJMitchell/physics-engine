@@ -48,7 +48,7 @@ class Camera
 
         static void mouseCallback(GLFWwindow* window, double mouseXPos, double mouseYPos)
         {
-            if(glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) 
+            if(!glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) 
             { 
                 m_PreviousMouseXPos = mouseXPos;
                 m_PreviousMouseYPos = mouseYPos;
