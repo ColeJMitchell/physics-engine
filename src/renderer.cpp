@@ -82,10 +82,10 @@ void Renderer::startRenderLoop()
     glEnable(GL_DEPTH_TEST);
     while (!glfwWindowShouldClose(m_Window))
     {
-        if(glfwGetKey(m_Window, GLFW_KEY_W) == GLFW_PRESS){ Camera::updateEyeYPosition(.2); }
-        if(glfwGetKey(m_Window, GLFW_KEY_A) == GLFW_PRESS){ Camera::updateEyeYPosition(-.2); }
-        if(glfwGetKey(m_Window, GLFW_KEY_S) == GLFW_PRESS){ Camera::updateEyeXPosition(.2); }
-        if(glfwGetKey(m_Window, GLFW_KEY_D) == GLFW_PRESS){ Camera::updateEyeXPosition(-.2); }
+        if(glfwGetKey(m_Window, GLFW_KEY_W) == GLFW_PRESS){ Camera::updateEyeZPosition(.1); }
+        if(glfwGetKey(m_Window, GLFW_KEY_S) == GLFW_PRESS){ Camera::updateEyeZPosition(-.1); }
+        if(glfwGetKey(m_Window, GLFW_KEY_D) == GLFW_PRESS){ Camera::updateEyeXPosition(-.1); }
+        if(glfwGetKey(m_Window, GLFW_KEY_A) == GLFW_PRESS){ Camera::updateEyeXPosition(.1); }
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glUseProgram(m_ShaderProgram);
