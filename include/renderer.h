@@ -22,7 +22,7 @@ class Renderer
         void startRenderLoop();
 
     private:
-        Cube* m_Cube;
+        CubeRenderer* m_CubeRenderer;
         GLFWwindow* m_Window; 
         VertexBuffer* m_VBO;
         VertexArray* m_VAO;
@@ -30,6 +30,6 @@ class Renderer
         IndexBuffer* m_EdgeIBO;
         Shaders* m_Shaders;
         unsigned int m_ShaderProgram;
-        double m_ScreenHeight = 1200;
-        double m_ScreenWidth = 900;      
+        double m_ScreenWidth = 1200; 
+        double m_ScreenHeight = 900;     
 };

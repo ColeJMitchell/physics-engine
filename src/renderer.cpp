@@ -11,7 +11,7 @@ Renderer::~Renderer()
     delete m_FaceIBO;
     delete m_EdgeIBO;
     delete m_Shaders;
-    delete m_Cube;
+    delete m_CubeRenderer;
     glfwDestroyWindow(m_Window);
     glfwTerminate();
 }
@@ -24,7 +24,10 @@ int Renderer::setupWindow()
         return -1;
     }
 
-    m_Window = glfwCreateWindow(m_ScreenHeight, m_ScreenWidth, "Physics Engine", nullptr, nullptr);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    m_Window = glfwCreateWindow(m_ScreenWidth, m_ScreenHeight, "Physics Engine", nullptr, nullptr);
     glViewport(0, 0, 1200, 900);
 
     if(!m_Window)
@@ -44,10 +47,6 @@ int Renderer::setupWindow()
         glfwTerminate();
         return -1;
     }
-    
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     //check if the shader did not compile properly in constructor
     if (m_ShaderProgram == 0) 
@@ -64,13 +63,13 @@ int Renderer::setupWindow()
 
 void Renderer::initRenderObjects()
 {
-    m_Cube = new Cube();
-    m_VBO = new VertexBuffer(m_Cube->getVertices(), m_Cube->getVertexFloatCount());
+    m_CubeRenderer = new CubeRenderer();
+    m_VBO = new VertexBuffer(m_CubeRenderer->getVertices(), m_CubeRenderer->getVertexFloatCount());
     m_VAO = new VertexArray();
-    m_FaceIBO = new IndexBuffer(m_Cube->getFaceIndices(), m_Cube->getFaceIndexFloatCount());
-    m_EdgeIBO = new IndexBuffer(m_Cube->getEdgeIndices(), m_Cube->getEdgeIndexFloatCount());
+    m_FaceIBO = new IndexBuffer(m_CubeRenderer->getFaceIndices(), m_CubeRenderer->getFaceIndexFloatCount());
+    m_EdgeIBO = new IndexBuffer(m_CubeRenderer->getEdgeIndices(), m_CubeRenderer->getEdgeIndexFloatCount());
     m_Shaders = new Shaders("../shaders/vertex.glsl", "../shaders/fragment.glsl");
-    m_VAO->addBufferElement(GL_FLOAT, m_Cube->getVertexStrideCount());
+    m_VAO->addBufferElement(GL_FLOAT, m_CubeRenderer->getVertexStrideCount());
     m_VAO->processBufferLayout();
     m_ShaderProgram = m_Shaders->getShaderProgram();
 }
@@ -79,8 +78,9 @@ void Renderer::startRenderLoop()
 {
     int radians = 0;
     int frames = 0;
+    glClearColor(0.53f, 0.81f, 0.92f, 1.0f);
     glEnable(GL_DEPTH_TEST);
-    glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     glfwSetCursorPosCallback(m_Window, Camera::mouseCallback);
 
     while (!glfwWindowShouldClose(m_Window))
@@ -92,7 +92,6 @@ void Renderer::startRenderLoop()
         if(glfwGetKey(m_Window, GLFW_KEY_D) == GLFW_PRESS){ Camera::updateCameraXPosition(-.1); }
         if(glfwGetKey(m_Window, GLFW_KEY_UP) == GLFW_PRESS){ Camera::updateCameraYPosition(.1);}
         if(glfwGetKey(m_Window, GLFW_KEY_DOWN) == GLFW_PRESS){ Camera::updateCameraYPosition(-.1); }
-        glfwSetCursorPos(m_Window, m_ScreenWidth / 2, m_ScreenHeight / 2);
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glUseProgram(m_ShaderProgram);
@@ -104,9 +103,9 @@ void Renderer::startRenderLoop()
         //first three floats are translation
         //second three floats are scale
         //last three are rotation (x, y, z)
-        Cube::renderCube(-3, 0, -10, 2, 1, 1, 1, 0, 0, radians, m_FaceIBO, m_EdgeIBO, m_ShaderProgram);
-        Cube::renderCube(0, 0, -10, 1, 2, 1, 1, 0, 0, radians, m_FaceIBO, m_EdgeIBO, m_ShaderProgram);
-        Cube::renderCube(3, 0, -10, 1, 1, 2, 1, 0, 0, radians, m_FaceIBO, m_EdgeIBO, m_ShaderProgram);
+        CubeRenderer::renderCube(-3, 0, -10, 2, 1, 1, 1, 0, 0, radians, m_FaceIBO, m_EdgeIBO, m_ShaderProgram);
+        CubeRenderer::renderCube(0, 0, -10, 1, 2, 1, 1, 0, 0, radians, m_FaceIBO, m_EdgeIBO, m_ShaderProgram);
+        CubeRenderer::renderCube(3, 0, -10, 1, 1, 2, 1, 0, 0, radians, m_FaceIBO, m_EdgeIBO, m_ShaderProgram);
 
         glfwSwapBuffers(m_Window);
         glfwPollEvents();

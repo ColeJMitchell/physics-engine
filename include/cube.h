@@ -5,7 +5,7 @@
 #include "camera.h"
 #include "indexbuffer.h"
 
-class Cube
+class CubeRenderer
 {
   public:
     static void renderCube(float xTranslate, float yTranslate, float zTranslate,

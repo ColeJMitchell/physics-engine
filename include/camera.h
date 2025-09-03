@@ -48,6 +48,13 @@ class Camera
 
         static void mouseCallback(GLFWwindow* window, double mouseXPos, double mouseYPos)
         {
+            if(glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) 
+            { 
+                m_PreviousMouseXPos = mouseXPos;
+                m_PreviousMouseYPos = mouseYPos;
+                return; 
+            }
+
             if (m_FirstMouseCallback)
             {
                 m_PreviousMouseXPos = mouseXPos;
@@ -83,5 +90,5 @@ class Camera
         inline static float m_PreviousMouseYPos = 0.0f;
         inline static float m_Pitch = 0.0f;
         inline static float m_Yaw = -90.0f;
-        inline static float m_Sensitivity = .1f;
+        inline static float m_Sensitivity = .3f;
 };
