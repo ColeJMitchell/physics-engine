@@ -1,4 +1,5 @@
 #include "renderer.h"
+#include "debugging.h"
 
 Renderer::~Renderer()
 {
@@ -15,6 +16,9 @@ Renderer::~Renderer()
 
 int Renderer::setupWindow()
 {
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     if(!glfwInit())
     {
         std::cerr << "Failed to initialize GLFW" << std::endl;
@@ -31,6 +35,7 @@ int Renderer::setupWindow()
     }
     
     glfwMakeContextCurrent(m_Window);
+
     glewExperimental = GL_TRUE;
 
     if(glewInit() != GLEW_OK)
@@ -40,20 +45,6 @@ int Renderer::setupWindow()
         glfwTerminate();
         return -1;
     }
-    
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-    //check if the shader did not compile properly in constructor
-    if (m_ShaderProgram == 0) 
-    {
-        std::cerr << "Failed to create shader program" << std::endl;
-        glfwDestroyWindow(m_Window);
-        glfwTerminate();
-        return -1;
-    }
-
     Debugging::debug("Window Setup");
     return 0;
 }
@@ -67,6 +58,15 @@ void Renderer::initRenderObjects()
     m_VAO->addBufferElement(GL_FLOAT, 2);
     m_VAO->processBufferLayout();
     m_ShaderProgram = m_Shaders->getShaderProgram();
+    std::cerr << "Shader program = " << m_ShaderProgram << "\n";
+
+    //check if the shaders did not compile properly in constructor
+    if (m_ShaderProgram == 0) 
+    {
+        std::cerr << "Failed to create shader program" << std::endl;
+        glfwDestroyWindow(m_Window);
+        glfwTerminate();
+    }
 }
 
 void Renderer::startRenderLoop()
@@ -84,20 +84,11 @@ void Renderer::startRenderLoop()
         glUseProgram(m_ShaderProgram);
 
         int location = glGetUniformLocation(m_ShaderProgram, "u_Color");
-
-        if (r <= 0.0f) {
-            increment = 0.02f;
-        } 
-        else if (r >= 1.0f) {
-            increment = -0.02f;
-        }
-
-        r = g = b = r + increment;
-
-        glUniform4f(location, r, g, b, 1.0f); 
+        glUniform4f(location, 1.0f, 0, 0, 1.0f); 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
         glfwSwapBuffers(m_Window);
         glfwPollEvents();
+        Debugging::debug("Render Loop");
     }
 }
